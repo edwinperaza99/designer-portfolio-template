@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { getSettings } from "@/sanity/queries";
-import "./globals.css";
+import "@/app/globals.css";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -85,7 +85,7 @@ export async function generateMetadata(): Promise<Metadata> {
 	};
 }
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
@@ -93,7 +93,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+				className={`${geistSans.variable} ${geistMono.variable} antialiased `}
 			>
 				{children}
 			</body>

@@ -3,24 +3,17 @@ export interface ContactFormProps {
 	accessToken: string;
 }
 
-export type Project = {
-	_id: string;
-	_createdAt: string;
+export type ProjectType = {
 	title: string;
+	slug: {
+		current: string;
+	};
 	author?: string;
 	details?: {
 		label: string;
 		value: string;
 	}[];
-	images?: {
-		_key: string;
-		asset: {
-			_ref: string;
-			_type: "reference";
-		};
-		alt?: string;
-		credit?: string;
-	}[];
+	images?: ImageData[];
 };
 
 export interface ImageData {
@@ -29,6 +22,7 @@ export interface ImageData {
 		url: string;
 	};
 	alt?: string;
+	credit?: string;
 }
 
 export type SettingsType = {

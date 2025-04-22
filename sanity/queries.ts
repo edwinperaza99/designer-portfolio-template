@@ -1,5 +1,5 @@
 import { client } from "@/sanity/lib/client";
-import { SettingsType } from "@/types";
+import { ProjectType, SettingsType } from "@/types";
 
 export function sanityFetch<
 	T,
@@ -54,5 +54,25 @@ export async function getSettings(): Promise<SettingsType> {
       alt
     }
   }`
+	);
+}
+
+export async function getProjects(): Promise<ProjectType[]> {
+	return await sanityFetch<ProjectType[]>(
+		`*[_type == "projectsSection"][0]{
+            projects[]->{
+              title,
+              slug,
+              author,
+              details,
+              images[]{
+                asset->{
+                  url
+                },
+                alt,
+                credit
+              }
+            }
+          }`
 	);
 }
