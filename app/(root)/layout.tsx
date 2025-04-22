@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { getSettings } from "@/sanity/queries";
+import { getHeaderData, getSettings } from "@/sanity/queries";
 import "@/app/globals.css";
+import { redirect } from "next/navigation";
+import NavBar from "@/components/nav-bar";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -90,6 +92,12 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const data = await getHeaderData();
+	if (!data) {
+		console.warn("Warning: No header data found.");
+		redirect("/studio");
+	}
+
 	return (
 		<html lang="en">
 			<body
@@ -97,15 +105,20 @@ export default async function RootLayout({
 			>
 				<header className="flex flex-col justify-content">
 					<section className="container text-center mx-auto">
-						<h1 className="text-7xl font-black uppercase pt-10">Mio Okada</h1>
+						<h1 className="text-7xl font-black uppercase pt-10">
+							{data.title}
+						</h1>
 						<h2 className="text-2xl text-[#9e876f] font-light uppercase">
-							Scenic Designer
+							{data.subtitle}
 						</h2>
 					</section>
 				</header>
+				<NavBar />
 				<div className="flex-1">{children}</div>
 				<footer className="container mx-auto text-center py-6 font-thin text-gray-800">
-					<p>&copy; {new Date().getFullYear()} Mio Okada</p>
+					<p>
+						&copy; {new Date().getFullYear()} {data.title}
+					</p>
 				</footer>
 			</body>
 		</html>

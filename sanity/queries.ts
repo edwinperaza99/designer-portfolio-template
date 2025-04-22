@@ -1,5 +1,10 @@
 import { client } from "@/sanity/lib/client";
-import { ProjectType, SettingsType } from "@/types";
+import {
+	ContactType,
+	HeaderDataType,
+	ProjectType,
+	SettingsType,
+} from "@/types";
 
 export function sanityFetch<
 	T,
@@ -74,5 +79,24 @@ export async function getProjects(): Promise<ProjectType[]> {
               }
             }
           }`
+	);
+}
+
+export async function getHeaderData(): Promise<HeaderDataType> {
+	return await sanityFetch<HeaderDataType>(
+		`*[_id == "header"][0] {
+            title,
+            subtitle
+        }`
+	);
+}
+
+export async function getContactData(): Promise<ContactType> {
+	return await sanityFetch<ContactType>(
+		`*[_id == "contact"][0] {
+            title,
+            email,
+            accessToken
+        }`
 	);
 }

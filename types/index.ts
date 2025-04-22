@@ -1,5 +1,6 @@
-export interface ContactFormProps {
+export interface ContactType {
 	title: string;
+	email?: string;
 	accessToken: string;
 }
 
@@ -45,4 +46,9 @@ export type SettingsType = {
 	openGraphImages?: Array<ImageData>;
 	twitterCard?: "summary_large_image" | "summary" | "player" | "app";
 	twitterImages?: Array<ImageData>;
+};
+
+export type HeaderDataType = {
+	title: string;
+	subtitle: string;
 };
