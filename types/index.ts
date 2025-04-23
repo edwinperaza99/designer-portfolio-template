@@ -67,3 +67,33 @@ export type HeaderDataType = {
 	title: string;
 	subtitle: string;
 };
+
+export type AboutDataType = {
+	resumeTitle: string;
+	resumeDescription?: string;
+	buttonText?: string;
+	resumeFile: {
+		asset: {
+			url: string;
+		};
+	};
+	aboutTitle?: string;
+	aboutDescription?: Array<{
+		children?: Array<{
+			marks?: Array<string>;
+			text?: string;
+			_type: "span";
+			_key: string;
+		}>;
+		style?: "normal" | "quote";
+		listItem?: "bullet" | "number";
+		markDefs?: Array<{
+			href?: string;
+			_type: "link";
+			_key: string;
+		}>;
+		level?: number;
+		_type: "block";
+		_key: string;
+	}>; // Portable Text
+};

@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import {
+	AboutDataType,
 	ContactType,
 	HeaderDataType,
 	ProjectPreviewType,
@@ -123,5 +124,22 @@ export async function getContactData(): Promise<ContactType> {
             email,
             accessToken
         }`
+	);
+}
+
+export async function getAboutData(): Promise<AboutDataType> {
+	return await sanityFetch<AboutDataType>(
+		`*[_type == "about"][0]{
+      resumeTitle,
+      resumeDescription,
+      buttonText,
+      resumeFile {
+        asset->{
+          url
+        }
+      },
+      aboutTitle,
+      aboutDescription
+    }`
 	);
 }
