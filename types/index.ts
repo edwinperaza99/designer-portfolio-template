@@ -17,10 +17,25 @@ export type ProjectType = {
 	images?: ImageData[];
 };
 
+export type ProjectPreview = {
+	title: string;
+	slug: {
+		current: string;
+	};
+	image: ImageData;
+};
+
+export type ProjectPreviewType = {
+	projects: ProjectPreview[];
+};
+
 export interface ImageData {
 	asset: {
 		_id: string;
 		url: string;
+		metadata: {
+			lqip: string;
+		};
 	};
 	alt?: string;
 	credit?: string;

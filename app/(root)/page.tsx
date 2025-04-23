@@ -1,12 +1,42 @@
-export default function Home() {
+import NoData from "@/components/no-data";
+import { getProjectsSection } from "@/sanity/queries";
+import Image from "next/image";
+import Link from "next/link";
+
+export default async function Home() {
+	const data = await getProjectsSection();
+	if (!data) {
+		return <NoData />;
+	}
+
 	return (
-		<div className="">
-			<section className="container text-center mx-auto">
-				<h1 className="text-7xl font-black uppercase pt-10">Main Page</h1>
-				<h2 className="text-2xl text-[#9e876f] font-light uppercase">
-					Goes here
-				</h2>
-			</section>
-		</div>
+		<>
+			<main className="max-w-6xl mx-auto">
+				<section className="container grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto px-4 mb-10">
+					{data.projects.map((project, i) => (
+						<article key={i} className="h-auto w-full group">
+							<Link href={`/productions/${project.slug.current}`}>
+								<div className="aspect-video relative">
+									<Image
+										src={project.image.asset.url}
+										alt=""
+										className="object-cover opacity-100 group-hover:opacity-70"
+										fill
+										blurDataURL={project.image.asset.metadata.lqip}
+										placeholder="blur"
+										loading="lazy"
+									/>
+								</div>
+								<div className="text-center p-2">
+									<h3 className="text-base md:text-lg text-black group-hover:text-gray-700">
+										{project.title}
+									</h3>
+								</div>
+							</Link>
+						</article>
+					))}
+				</section>
+			</main>
+		</>
 	);
 }

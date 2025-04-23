@@ -2,6 +2,7 @@ import { client } from "@/sanity/lib/client";
 import {
 	ContactType,
 	HeaderDataType,
+	ProjectPreviewType,
 	ProjectType,
 	SettingsType,
 } from "@/types";
@@ -62,23 +63,47 @@ export async function getSettings(): Promise<SettingsType> {
 	);
 }
 
-export async function getProjects(): Promise<ProjectType[]> {
-	return await sanityFetch<ProjectType[]>(
-		`*[_type == "projectsSection"][0]{
-            projects[]->{
-              title,
-              slug,
-              author,
-              details,
-              images[]{
-                asset->{
-                  url
-                },
-                alt,
-                credit
-              }
-            }
-          }`
+// query for homepage
+export async function getProjectsSection(): Promise<ProjectPreviewType> {
+	return await sanityFetch<ProjectPreviewType>(
+		`*[_id == "projectsSection"][0]{
+  projects[]->{
+    title,
+    slug,
+    "image": images[0]{
+      asset->{
+        url,
+        metadata {
+        lqip
+        }
+      },
+        alt,
+        credit
+    }
+  }
+}`
+	);
+}
+
+// query for specific project page
+export async function getProjectBySlug(
+	slug: string
+): Promise<ProjectType | null> {
+	return await sanityFetch<ProjectType, { slug: string }>(
+		`*[_type == "project" && slug.current == $slug][0] {
+      title,
+      slug,
+      author,
+      details,
+      images[]{
+        asset->{
+          url
+        },
+        alt,
+        credit
+      }
+    }`,
+		{ slug }
 	);
 }
 
