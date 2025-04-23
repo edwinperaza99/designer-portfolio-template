@@ -24,7 +24,7 @@ export function sanityFetch<
 
 export async function getSettings(): Promise<SettingsType> {
 	return await sanityFetch<SettingsType>(
-		`*[_type == "settingsSEO"][0]{
+		`*[_type == "settings"][0]{
     siteTitle,
     siteDescription,
     applicationName,

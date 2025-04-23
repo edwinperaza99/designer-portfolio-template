@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { getHeaderData, getSettings } from "@/sanity/queries";
 import "@/app/globals.css";
 import { redirect } from "next/navigation";
 import NavBar from "@/components/nav-bar";
+import localFont from "next/font/local";
 
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
-	subsets: ["latin"],
+const MinionPro = localFont({
+	src: "../fonts/MinionPro.woff",
+	variable: "--font-minion-pro",
+	weight: "100 900",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -23,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 			"Warning: No settings document found. Returning fallback metadata."
 		);
 		return {
-			title: "My Site",
+			title: "Update Title In Sanity",
 			description: "",
 		};
 	}
@@ -101,7 +97,7 @@ export default async function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col bg-white text-black min-h-screen`}
+				className={`${MinionPro.className} antialiased flex flex-col bg-white text-black min-h-screen`}
 			>
 				<header className="flex flex-col justify-content">
 					<section className="container text-center mx-auto">
