@@ -17,13 +17,10 @@ export async function generateStaticParams() {
 	return projects.map((p) => ({ slug: p.slug.current }));
 }
 
-type ProjectPageProps = {
-	params: {
-		slug: string;
-	};
-};
+type Params = Promise<{ slug: string }>;
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
+export default async function ProjectPage({ params }: { params: Params }) {
+	const { slug } = await params;
 	const project = await sanityFetch<ProjectType, { slug: string }>(
 		`*[_type == "project" && slug.current == $slug][0]{
           title,
@@ -39,7 +36,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             credit
           }
         }`,
-		{ slug: params.slug }
+		{ slug: slug }
 	);
 
 	if (!project) return notFound();
