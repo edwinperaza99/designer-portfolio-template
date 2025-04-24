@@ -3,9 +3,13 @@ import components from "@/components/portable-text-component";
 import { PortableText } from "@portabletext/react";
 import { getAboutData } from "@/sanity/queries";
 import Link from "next/link";
+import NoData from "@/components/no-data";
 
 export default async function About() {
 	const data = await getAboutData();
+	if (!data) {
+		return <NoData />;
+	}
 
 	return (
 		<>
