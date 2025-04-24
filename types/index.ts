@@ -1,3 +1,5 @@
+import { PortableTextBlock } from "sanity";
+
 export interface ContactType {
 	title: string;
 	email?: string;
@@ -10,10 +12,7 @@ export type ProjectType = {
 		current: string;
 	};
 	author?: string;
-	details?: {
-		label: string;
-		value: string;
-	}[];
+	details?: PortableTextBlock[];
 	images?: ImageData[];
 };
 

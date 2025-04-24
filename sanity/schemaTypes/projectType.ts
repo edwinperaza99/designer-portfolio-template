@@ -21,30 +21,8 @@ export const projectType = defineType({
 			name: "details",
 			title: "Project Details",
 			type: "array",
-			description: "Add info like Director, Venue, Dates, etc.",
-			of: [
-				defineField({
-					name: "detailItem",
-					title: "Detail Item",
-					type: "object",
-					fields: [
-						{
-							name: "label",
-							title: "Label",
-							type: "string",
-							validation: (Rule) => Rule.required(),
-							description: "e.g., Director, Venue, Date",
-						},
-						{
-							name: "value",
-							title: "Value",
-							type: "string",
-							validation: (Rule) => Rule.required(),
-							description: "e.g., Collette Rutherford",
-						},
-					],
-				}),
-			],
+			of: [{ type: "block" }],
+			description: "Write any relevant details for this project.",
 		}),
 		defineField({
 			name: "slug",
@@ -67,6 +45,8 @@ export const projectType = defineType({
 			name: "images",
 			title: "Images",
 			type: "array",
+			description:
+				"Upload images for this project. You can reorder them and they will be displayed in the order you set.",
 			of: [
 				{
 					type: "image",

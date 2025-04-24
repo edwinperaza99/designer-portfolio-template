@@ -9,7 +9,7 @@ export default async function About() {
 
 	return (
 		<>
-			<main className="">
+			<main className="max-w-6xl mx-auto">
 				<section className="container mx-auto px-4 mb-10">
 					<div className="flex justify-center items-center">
 						<div className="bg-[#9e876f] h-1 w-full"></div>
