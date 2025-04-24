@@ -17,11 +17,13 @@ export async function generateStaticParams() {
 	return projects.map((p) => ({ slug: p.slug.current }));
 }
 
-export default async function ProjectPage({
-	params,
-}: {
-	params: { slug: string };
-}) {
+type ProjectPageProps = {
+	params: {
+		slug: string;
+	};
+};
+
+export default async function ProjectPage({ params }: ProjectPageProps) {
 	const project = await sanityFetch<ProjectType, { slug: string }>(
 		`*[_type == "project" && slug.current == $slug][0]{
           title,
