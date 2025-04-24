@@ -1,8 +1,9 @@
-import ImagesGallery from "@/app/(root)/project/[slug]/image-gallery";
+import ImagesGallery from "@/components/image-gallery";
 import { sanityFetch } from "@/sanity/queries";
 import { ProjectType } from "@/types";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
+import BackButton from "@/components/back-button";
 
 type Slug = {
 	slug: { current: string };
@@ -63,6 +64,7 @@ export default async function ProjectPage({
 					<ImagesGallery images={project.images} />
 				</section>
 			)}
+			<BackButton />
 		</main>
 	);
 }
