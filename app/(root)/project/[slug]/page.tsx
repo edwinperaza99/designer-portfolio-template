@@ -4,6 +4,12 @@ import { ProjectType } from "@/types";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import BackButton from "@/components/back-button";
+import {
+	MotionDiv,
+	MotionH2,
+	MotionH3,
+	MotionSection,
+} from "@/components/motion-utils";
 
 type Slug = {
 	slug: { current: string };
@@ -43,20 +49,43 @@ export default async function ProjectPage({ params }: { params: Params }) {
 
 	return (
 		<main className="max-w-6xl mx-auto flex flex-col justify-center container px-4">
-			<section className="w-full mx-auto text-black bg-[#C3BBAE] text-center rounded-tl-3xl rounded-br-3xl p-4 mb-4 md:mb-6 flex flex-col justify-center max-w-3/4 md:max-w-2/3">
-				<h2 className="text-2xl font-bold">{project.title}</h2>
+			<MotionSection
+				className="w-full mx-auto text-black bg-[#C3BBAE] text-center rounded-tl-3xl rounded-br-3xl p-4 mb-4 md:mb-6 flex flex-col justify-center max-w-3/4 md:max-w-2/3 origin-center"
+				initial={{ scaleX: 0 }}
+				animate={{ scaleX: 1 }}
+				transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+			>
+				<MotionH2
+					className="text-2xl font-bold"
+					initial={{ opacity: 0, y: 10 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ delay: 0.5, duration: 0.4 }}
+				>
+					{project.title}
+				</MotionH2>
+
 				{project.author && (
-					<h3 className="text-base">
-						by{" "}
-						<span className="italic">{project.author || "Unknown Author"}</span>
-					</h3>
+					<MotionH3
+						className="text-base"
+						initial={{ opacity: 0, y: 10 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ delay: 0.6, duration: 0.4 }}
+					>
+						by <span className="italic">{project.author}</span>
+					</MotionH3>
 				)}
+
 				{project.details && (
-					<div className="mt-3 flex flex-col justify-start text-sm text-left mx-auto">
+					<MotionDiv
+						className="mt-3 flex flex-col justify-start text-sm text-left mx-auto"
+						initial={{ opacity: 0, y: 10 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ delay: 0.7, duration: 0.4 }}
+					>
 						<PortableText value={project.details} />
-					</div>
+					</MotionDiv>
 				)}
-			</section>
+			</MotionSection>
 			{/* gallery of images here  */}
 			{project.images && project.images.length > 0 && (
 				<section>

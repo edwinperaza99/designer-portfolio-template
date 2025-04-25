@@ -5,14 +5,13 @@ import { Gallery, Item } from "react-photoswipe-gallery";
 import Image from "next/image";
 import "photoswipe/dist/photoswipe.css";
 import { ImageData } from "@/types";
+import { motion } from "framer-motion";
 
 export default function ImagesGallery({ images }: { images: ImageData[] }) {
-	// State to store the dimensions of the images
 	const [imageDimensions, setImageDimensions] = useState<{
 		[key: number]: { width: number; height: number };
 	}>({});
 
-	// Function to update image dimensions once the image is loaded
 	const handleImageLoad = (index: number, width: number, height: number) => {
 		setImageDimensions((prev) => ({
 			...prev,
@@ -23,12 +22,19 @@ export default function ImagesGallery({ images }: { images: ImageData[] }) {
 	return (
 		<Gallery withCaption>
 			{images.map((image, index) => (
-				<div key={index} className="w-full mb-4 md:mb-6">
+				<motion.div
+					key={index}
+					className="w-full mb-4 md:mb-6"
+					initial={{ opacity: 0.5, y: 20 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+					viewport={{ once: false, amount: 0.1 }}
+				>
 					<Item
 						original={image.asset.url}
 						thumbnail={image.asset.url}
-						width={imageDimensions[index]?.width || 1200} // Default to 1200 if not loaded
-						height={imageDimensions[index]?.height || 800} // Default to 800 if not loaded
+						width={imageDimensions[index]?.width || 1200}
+						height={imageDimensions[index]?.height || 800}
 						caption={image.credit || ""}
 					>
 						{({ ref, open }) => (
@@ -39,13 +45,13 @@ export default function ImagesGallery({ images }: { images: ImageData[] }) {
 									src={image.asset.url}
 									alt={image.alt || ""}
 									fill={false}
-									width={imageDimensions[index]?.width || 1200} // Set width dynamically
-									height={imageDimensions[index]?.height || 800} // Set height dynamically
+									width={imageDimensions[index]?.width || 1200}
+									height={imageDimensions[index]?.height || 800}
 									onLoad={(e) => {
 										const { naturalWidth, naturalHeight } =
 											e.currentTarget as HTMLImageElement;
 										handleImageLoad(index, naturalWidth, naturalHeight);
-									}} // Capture original dimensions
+									}}
 									style={{ objectFit: "contain" }}
 									className="object-cover w-full cursor-pointer"
 									placeholder="blur"
@@ -55,7 +61,7 @@ export default function ImagesGallery({ images }: { images: ImageData[] }) {
 							</div>
 						)}
 					</Item>
-				</div>
+				</motion.div>
 			))}
 		</Gallery>
 	);

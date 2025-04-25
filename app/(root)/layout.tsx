@@ -4,6 +4,7 @@ import "@/app/globals.css";
 import { redirect } from "next/navigation";
 import NavBar from "@/components/nav-bar";
 import localFont from "next/font/local";
+import { MotionFooter, MotionH1, MotionH2 } from "@/components/motion-utils";
 
 const MinionPro = localFont({
 	src: "../fonts/MinionPro.woff",
@@ -101,21 +102,38 @@ export default async function RootLayout({
 			>
 				<header className="flex flex-col justify-content">
 					<section className="container text-center mx-auto">
-						<h1 className="text-7xl font-black uppercase pt-10">
+						<MotionH1
+							className="text-7xl font-black uppercase pt-10"
+							initial={{ opacity: 0, scale: 0.9 }}
+							animate={{ opacity: 1, scale: 1 }}
+							transition={{ duration: 0.7, ease: "easeOut" }}
+						>
 							{data.title}
-						</h1>
-						<h2 className="text-2xl text-[#9e876f] font-light uppercase">
+						</MotionH1>
+
+						<MotionH2
+							className="text-2xl text-[#9e876f] font-light uppercase"
+							initial={{ opacity: 0, y: 10 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+						>
 							{data.subtitle}
-						</h2>
+						</MotionH2>
 					</section>
 				</header>
 				<NavBar />
 				<div className="flex-1">{children}</div>
-				<footer className="container mx-auto text-center py-6 font-thin text-gray-800">
+
+				<MotionFooter
+					className="container mx-auto text-center py-6 font-thin text-gray-800"
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
+				>
 					<p>
 						&copy; {new Date().getFullYear()} {data.title}
 					</p>
-				</footer>
+				</MotionFooter>
 			</body>
 		</html>
 	);
