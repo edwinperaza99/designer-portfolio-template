@@ -74,4 +74,18 @@ export const projectType = defineType({
 			},
 		}),
 	],
+	preview: {
+		select: {
+			title: "title",
+			author: "author",
+			media: "images.0.asset",
+		},
+		prepare({ title, author, media }) {
+			return {
+				title: title || "Untitled Project",
+				subtitle: author ? `by ${author}` : "No author specified",
+				media,
+			};
+		},
+	},
 });

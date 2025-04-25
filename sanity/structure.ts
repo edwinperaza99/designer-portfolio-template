@@ -10,11 +10,11 @@ export const structure: StructureResolver = (S) =>
 				.child(S.document().schemaType("header").documentId("header")),
 
 			S.listItem()
-				.title("About")
+				.title("About Section")
 				.child(S.document().schemaType("about").documentId("about")),
 
 			S.listItem()
-				.title("Contact")
+				.title("Contact Section")
 				.child(S.document().schemaType("contact").documentId("contact")),
 
 			S.divider(),
@@ -32,14 +32,14 @@ export const structure: StructureResolver = (S) =>
 			S.divider(),
 
 			S.listItem()
-				.title("Global Settings")
+				.title("SEO Settings")
 				.child(
 					S.document().schemaType("settings").documentId("global-settings")
 				),
 
-			S.listItem()
-				.title("Navigation Bar")
-				.child(S.document().schemaType("navBar").documentId("navigation")),
+			// S.listItem()
+			// 	.title("Navigation Bar")
+			// 	.child(S.document().schemaType("navBar").documentId("navigation")),
 
 			S.divider(),
 		]);

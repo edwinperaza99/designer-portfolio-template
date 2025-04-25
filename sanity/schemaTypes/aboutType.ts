@@ -85,4 +85,11 @@ export const aboutType = defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 	],
+	preview: {
+		prepare() {
+			return {
+				title: "About Section",
+			};
+		},
+	},
 });

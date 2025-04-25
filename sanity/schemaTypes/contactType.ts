@@ -31,4 +31,11 @@ export const contactType = defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 	],
+	preview: {
+		prepare() {
+			return {
+				title: "Contact Section",
+			};
+		},
+	},
 });
