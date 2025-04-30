@@ -6,6 +6,8 @@ import NavBar from "@/components/nav-bar";
 import localFont from "next/font/local";
 import { MotionFooter, MotionH1, MotionH2 } from "@/components/motion-utils";
 
+export const revalidate = false;
+
 const MinionPro = localFont({
 	src: "../fonts/MinionPro.woff",
 	variable: "--font-minion-pro",

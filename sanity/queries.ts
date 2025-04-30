@@ -16,14 +16,16 @@ export function sanityFetch<
 	params?: Params,
 	options?: {
 		revalidate?: number | false;
+		tags?: string[];
 	}
 ): Promise<T> {
 	return client.fetch<T>(query, params ?? {}, {
-		// set to "false" to disable revalidation
-		next: { revalidate: options?.revalidate ?? 1 },
+		next: {
+			revalidate: options?.revalidate ?? false,
+			tags: options?.tags ?? ["global-sanity"],
+		},
 	});
 }
-
 export async function getSettings(): Promise<SettingsType> {
 	return await sanityFetch<SettingsType>(
 		`*[_type == "settings"][0]{
