@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 			return new Response("Bad Request", { status: 400 });
 		}
 
-		await revalidateTag("global-sanity");
+		await revalidateTag("global-sanity", { expire: 0 });
 
 		console.log("Revalidated everything via global-sanity tag");
 
